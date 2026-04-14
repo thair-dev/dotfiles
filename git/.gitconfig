@@ -1,0 +1,45 @@
+# Global Git configuration
+# Location: ~/.gitconfig
+
+[user]
+    # Your identity used in commits
+    name = Thair Judeh
+    email = 12701646+thair-dev@users.noreply.github.com
+
+    # SSH public key used for commit signing
+    # Assumes same key is used for authentication (common but optional)
+    signingkey = ~/.ssh/id_ed25519.pub
+
+[gpg]
+    # Use SSH-based signing instead of GPG
+    format = ssh
+
+[commit]
+    # Always sign commits
+    gpgsign = true
+
+# Optional: enable local verification of SSH signatures
+# Requires creating ~/.config/git/allowed_signers
+# Uncomment when needed
+#
+#[gpg "ssh"]
+#    allowedSignersFile = ~/.config/git/allowed_signers
+
+[core]
+    # Default editor for commits, rebase, etc.
+    editor = vim
+
+    # Ensure LF line endings (important for WSL/Linux consistency)
+    autocrlf = input
+
+[init]
+    # Default branch name for new repositories
+    defaultBranch = main
+
+[fetch]
+    # Remove remote-tracking branches that no longer exist
+    prune = true
+
+[push]
+    # Automatically set upstream on first push
+    autoSetupRemote = true
