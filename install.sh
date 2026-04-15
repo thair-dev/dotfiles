@@ -82,6 +82,7 @@ else
     "$DOTFILES_DIR/ssh/" "$HOME/"
 fi
 chmod 600 "$HOME/.ssh/config" 2>/dev/null || true
+ssh-add ~/.ssh/id_ed25519
 
 info "Enabling SSH agent service"
 if ! systemctl --user show-environment >/dev/null 2>&1; then
@@ -95,10 +96,8 @@ systemctl --user enable --now ssh-agent.service
 
 info "Setting zsh as the default shell"
 ZSH_BIN="$(command -v zsh)"
-if [[ "${SHELL:-}" != "$ZSH_BIN" ]]; then
-  if command -v chsh >/dev/null 2>&1; then
-    chsh -s "$ZSH_BIN" || printf 'Run manually: chsh -s %s\n' "$ZSH_BIN"
-  fi
+if command -v chsh >/dev/null 2>&1; then
+  chsh -s "$ZSH_BIN" || printf 'Run manually: chsh -s %s\n' "$ZSH_BIN"
 fi
 
 info "Installing Vim plugins"

@@ -68,3 +68,11 @@ compinit -d "$XDG_CACHE_HOME/zsh/zcompdump"
 if (( $+functions[load_zsh_highlighting] )); then
   load_zsh_highlighting
 fi
+
+# Load SSH key into the running ssh-agent if not already present.
+# - Requires SSH_AUTH_SOCK (systemd ssh-agent) to be set
+# - Prompts once per session to unlock the key
+# - No-op on subsequent shells while agent holds the key
+if [[ -n "$SSH_AUTH_SOCK" ]]; then
+  ssh-add -l >/dev/null 2>&1 || ssh-add ~/.ssh/id_ed25519
+fi
