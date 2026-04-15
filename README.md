@@ -56,6 +56,16 @@ cd ~/dotfiles
 bash install.sh
 exec zsh
 
+## Git
+
+A default Git configuration is provided under git/.gitconfig.
+
+This includes a preconfigured user identity and SSH signing setup. You should review and update these values to match your own environment:
+
+- user.name
+- user.email
+- user.signingkey
+
 ## SSH
 
 SSH config is installed to ~/.ssh/config if not already present.
