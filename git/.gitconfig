@@ -43,3 +43,15 @@
 [push]
     # Automatically set upstream on first push
     autoSetupRemote = true
+
+[diff]
+    # Use vimdiff for git difftool
+    tool = vimdiff
+
+[difftool]
+    # Do not prompt before launching difftool
+    prompt = false
+
+[pull]
+    # Rebase instead of merge on pull
+    rebase = true

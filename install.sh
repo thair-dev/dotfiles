@@ -2,20 +2,9 @@
 set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-BACKUP_DIR="$HOME/.dotfiles-backup/$(date +%Y%m%d-%H%M%S)"
 
 info() {
   printf '\n==> %s\n' "$*"
-}
-
-backup_if_needed() {
-  local target="$1"
-
-  if [[ -e "$target" || -L "$target" ]]; then
-    mkdir -p "$BACKUP_DIR/$(dirname "${target#$HOME/}")"
-    mv "$target" "$BACKUP_DIR/${target#$HOME/}"
-    printf 'Backed up %s\n' "$target"
-  fi
 }
 
 info "Installing base packages"
@@ -58,15 +47,6 @@ fi
 info "Copying dotfiles"
 mkdir -p "$HOME/.config/zsh" "$HOME/.config/git" "$HOME/.config/systemd/user"
 
-backup_if_needed "$HOME/.zshrc"
-backup_if_needed "$HOME/.gitconfig"
-backup_if_needed "$HOME/.vimrc"
-backup_if_needed "$HOME/.p10k.zsh"
-backup_if_needed "$HOME/.config/zsh/plugins.zsh"
-backup_if_needed "$HOME/.config/zsh/aliases.zsh"
-backup_if_needed "$HOME/.config/zsh/env.zsh"
-backup_if_needed "$HOME/.config/systemd/user/ssh-agent.service"
-
 rsync -av --no-perms --no-owner --no-group \
   "$DOTFILES_DIR/zsh/" "$HOME/"
 
@@ -81,6 +61,21 @@ rsync -av --no-perms --no-owner --no-group \
 
 rsync -av --no-perms --no-owner --no-group \
   "$DOTFILES_DIR/systemd/" "$HOME/"
+
+# SSH (only special case)
+info "Configuring SSH"
+
+mkdir -p "$HOME/.ssh"
+chmod 700 "$HOME/.ssh"
+
+if [[ -e "$HOME/.ssh/config" ]]; then
+  printf 'WARNING: ~/.ssh/config exists and will not be overwritten\n'
+else
+  rsync -av --no-perms --no-owner --no-group \
+    "$DOTFILES_DIR/ssh/" "$HOME/"
+fi
+
+chmod 600 "$HOME/.ssh/config" 2>/dev/null || true
 
 info "Enabling SSH agent service"
 if ! systemctl --user show-environment >/dev/null 2>&1; then
