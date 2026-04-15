@@ -37,8 +37,8 @@
     defaultBranch = main
 
 [fetch]
-    # Remove remote-tracking branches that no longer exist
-    prune = true
+    # Do not remove remote-tracking branches that no longer exist
+    prune = false
 
 [push]
     # Automatically set upstream on first push
