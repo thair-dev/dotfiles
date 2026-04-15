@@ -1,6 +1,6 @@
 # Dotfiles
 
-Minimal WSL-focused dotfiles for a fast, reproducible shell setup.
+Minimal, reproducible WSL environment with systemd services, SSH agent management, and Python tooling via uv.
 
 ## Overview
 
@@ -9,8 +9,16 @@ Minimal WSL-focused dotfiles for a fast, reproducible shell setup.
 - Prompt: Powerlevel10k (minimal config)
 - Tools: zoxide, fd, ripgrep, fzf
 - Editor: Vim (lean plugin set)
-- SSH agent: systemd
-- Python: uv
+- SSH agent: systemd (user service)
+- Python: uv (no system Python assumptions)
+
+## Design
+
+- Copy-based install (rsync), no symlinks
+- No environment mutation beyond required setup
+- Separation of install-time and runtime concerns
+- No secrets tracked in repository
+- Intended to be reproducible from a clean WSL install
 
 ## Structure
 
