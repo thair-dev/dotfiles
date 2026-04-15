@@ -1,0 +1,12 @@
+# Generated files
+*.zwc
+.zcompdump*
+.viminfo
+__pycache__/
+.cache/
+
+# Secrets
+.ssh/
+.aws/
+.azure/
+.config/gcloud/
