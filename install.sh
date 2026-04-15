@@ -79,7 +79,7 @@ if [[ -e "$HOME/.ssh/config" ]]; then
   printf 'WARNING: ~/.ssh/config exists and will not be overwritten\n'
 else
   rsync -av --no-perms --no-owner --no-group \
-    "$DOTFILES_DIR/ssh/" "$HOME/"
+    "$DOTFILES_DIR/ssh/config" "$HOME/.ssh/config"
 fi
 chmod 600 "$HOME/.ssh/config" 2>/dev/null || true
 ssh-add ~/.ssh/id_ed25519

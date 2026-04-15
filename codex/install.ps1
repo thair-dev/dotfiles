@@ -20,7 +20,7 @@
 # 1. Open PowerShell (Run as Administrator if you encounter issues)
 # 2. cd path\to\dotfiles
 # 3. Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-# 4. .\install.ps1
+# 4. .\codex\install.ps1
 # 5. Restart Codex
 
 # -------------------------------
@@ -68,7 +68,7 @@ Write-Host "==> Installing Codex configuration..."
 $codexDir = Join-Path $env:USERPROFILE ".codex"
 New-Item -ItemType Directory -Force $codexDir | Out-Null
 
-$source = Join-Path $PSScriptRoot "codex\AGENTS.md"
+$source = Join-Path $PSScriptRoot "AGENTS.md"
 $target = Join-Path $codexDir "AGENTS.md"
 
 if (-not (Test-Path $source)) {

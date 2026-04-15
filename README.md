@@ -42,8 +42,7 @@ dotfiles/
     .config/systemd/user/
       ssh-agent.service
   ssh/
-    .ssh/
-      config
+    config
   codex/
     AGENTS.md
     install.ps1
@@ -51,10 +50,12 @@ dotfiles/
 
 ## Setup
 
+```sh
 git clone https://github.com/thair-dev/dotfiles.git ~/dotfiles
 cd ~/dotfiles
 bash install.sh
 exec zsh
+```
 
 ## Git
 
@@ -68,7 +69,7 @@ This includes a preconfigured user identity and SSH signing setup. You should re
 
 ## SSH
 
-SSH config is installed to ~/.ssh/config if not already present.
+The tracked SSH client config lives at `ssh/config` and is installed to `~/.ssh/config` if not already present.
 
 You are responsible for:
 - generating keys (ssh-keygen)
