@@ -9,20 +9,11 @@ Minimal WSL-focused dotfiles for a fast, reproducible shell setup.
 - Prompt: Powerlevel10k (minimal config)
 - Tools: zoxide, fd, ripgrep, fzf
 - Editor: Vim (lean plugin set)
-- SSH agent: systemd (custom unit for WSL)
-
-## Design
-
-- Copy-based install using rsync
-- No symlinks and no stow
-- Repository can be deleted after installation
-- Powerlevel10k uses a small tracked config instead of wizard output
-- Python environments are supported but not auto-initialized
-- No shell frameworks or heavy abstractions
+- SSH agent: systemd
+- Python: uv
 
 ## Structure
 
-```text
 dotfiles/
   install.sh
   README.md
@@ -42,6 +33,28 @@ dotfiles/
   systemd/
     .config/systemd/user/
       ssh-agent.service
+  ssh/
+    .ssh/
+      config
+  codex/
+    AGENTS.md
+    install.ps1
+    README.md
+
+## Setup
+
+git clone https://github.com/thair-dev/dotfiles.git ~/dotfiles
+cd ~/dotfiles
+bash install.sh
+exec zsh
+
+## SSH
+
+SSH config is installed to ~/.ssh/config if not already present.
+
+You are responsible for:
+- generating keys (ssh-keygen)
+- adding keys to GitHub
 
 ## Codex (Windows)
 

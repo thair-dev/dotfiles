@@ -45,6 +45,11 @@ else
   print -u2 "zinit not found. Run ~/dotfiles/install.sh"
 fi
 
+# uv shell completion (must be before compinit)
+if command -v uv >/dev/null 2>&1; then
+  eval "$(uv generate-shell-completion zsh)"
+fi
+
 # Completion system
 fpath=("$HOME/.zfunc" $fpath)
 typeset -U fpath

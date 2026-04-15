@@ -15,12 +15,21 @@ sudo apt-get install -y \
   fd-find \
   fzf \
   git \
+  jq \
   openssh-client \
   ripgrep \
   rsync \
   vim \
   zoxide \
   zsh
+
+info "Installing uv"
+if ! command -v uv >/dev/null 2>&1; then
+  curl -LsSf https://astral.sh/uv/install.sh | INSTALLER_NO_MODIFY_PATH=1 sh
+  export PATH="$HOME/.local/bin:$PATH"
+fi
+info "Installing base Python (uv)"
+uv python install 3.13
 
 info "Installing zinit"
 ZINIT_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/zinit/zinit.git"
@@ -62,19 +71,16 @@ rsync -av --no-perms --no-owner --no-group \
 rsync -av --no-perms --no-owner --no-group \
   "$DOTFILES_DIR/systemd/" "$HOME/"
 
-# SSH (only special case)
+# SSH
 info "Configuring SSH"
-
 mkdir -p "$HOME/.ssh"
 chmod 700 "$HOME/.ssh"
-
 if [[ -e "$HOME/.ssh/config" ]]; then
   printf 'WARNING: ~/.ssh/config exists and will not be overwritten\n'
 else
   rsync -av --no-perms --no-owner --no-group \
     "$DOTFILES_DIR/ssh/" "$HOME/"
 fi
-
 chmod 600 "$HOME/.ssh/config" 2>/dev/null || true
 
 info "Enabling SSH agent service"
