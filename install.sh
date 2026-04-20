@@ -82,7 +82,6 @@ else
     "$DOTFILES_DIR/ssh/config" "$HOME/.ssh/config"
 fi
 chmod 600 "$HOME/.ssh/config" 2>/dev/null || true
-ssh-add ~/.ssh/id_ed25519
 
 info "Enabling SSH agent service"
 if ! systemctl --user show-environment >/dev/null 2>&1; then
