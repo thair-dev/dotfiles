@@ -10,6 +10,7 @@ info() {
 info "Installing base packages"
 sudo apt-get update
 sudo apt-get install -y \
+  build-essential \
   ca-certificates \
   curl \
   fd-find \
@@ -17,9 +18,13 @@ sudo apt-get install -y \
   git \
   jq \
   openssh-client \
+  pkg-config \
+  poppler-utils \
   ripgrep \
   rsync \
+  unzip \
   vim \
+  zip \
   zoxide \
   zsh
 
